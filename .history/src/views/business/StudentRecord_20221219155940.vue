@@ -1,0 +1,53 @@
+<template>
+  <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+    <el-tab-pane label="潜在学员" name="first">潜在学员</el-tab-pane>
+    <el-tab-pane label="在读学员" name="second">在读学员</el-tab-pane>
+    <el-tab-pane label="历史学员" name="third">历史学员</el-tab-pane>
+  </el-tabs>
+  <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form-item label="学员信息">
+      <el-input
+        v-model="formInline.user"
+        placeholder="学员信息/手机号码/卡号"
+      />
+    </el-form-item>
+    <el-form-item label="g'r'n'jin">
+      <el-select v-model="formInline.region" placeholder="Activity zone">
+        <el-option label="Zone one" value="shanghai" />
+        <el-option label="Zone two" value="beijing" />
+      </el-select>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">Query</el-button>
+    </el-form-item>
+  </el-form>
+</template>
+
+<script lang="ts" setup>
+import { ref, reactive } from "vue";
+import type { TabsPaneContext } from "element-plus";
+
+const activeName = ref("first");
+
+const handleClick = (tab: TabsPaneContext, event: Event) => {
+  console.log(tab, event);
+};
+
+const formInline = reactive({
+  user: "",
+  region: "",
+});
+
+const onSubmit = () => {
+  console.log("submit!");
+};
+</script>
+
+<style lang="scss" scoped>
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+</style>

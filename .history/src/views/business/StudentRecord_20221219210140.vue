@@ -1,6 +1,7 @@
 <template>
   <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-    <el-tab-pane label="潜在学员" name="first">
+    <el-tab-pane label="潜在学员" name="first"
+      >
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="学员信息">
           <el-input
@@ -26,6 +27,7 @@
             v-model="formInline.followPerson"
             placeholder="请选择更跟进人"
             :prefix-icon="Grid"
+            text
             @click="dialogTableVisible = true"
           >
           </el-input>
@@ -96,8 +98,6 @@ const formInline = reactive({
   region: "",
   followPerson: "",
 });
-
-// const Employee_Information
 
 const onSubmit = () => {
   console.log("submit!");
