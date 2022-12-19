@@ -8,7 +8,9 @@
       <el-page-header @back="goback">
         <template #title>返回</template>
         <template #content>
-          <span :style="{ fontSize: '16px' }">{{ store.state.currentPage }}</span>
+          <span :style="{ fontSize: '16px' }">
+            {{ store.state.currentPage }}
+          </span>
         </template>
         <template #extra>
           <el-tooltip effect="dark" :content="fullscreen ? `取消全屏` : `全屏`">
