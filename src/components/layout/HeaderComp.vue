@@ -39,6 +39,7 @@ const fullscreen = ref(false);
 const handleCollapse = () => store.commit("setCollapse");
 
 const goback = () => {
+  store.commit("setCurrentPage", router.currentRoute.value.fullPath);
   router.go(-1);
 };
 

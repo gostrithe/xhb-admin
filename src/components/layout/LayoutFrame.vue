@@ -30,9 +30,11 @@ import AsideComp from "./AsideComp.vue";
   padding: 0;
 }
 .el-aside {
-  background-color: #606266;
+  background-color: rgb(48, 65, 86);
 }
 .el-main {
+  height: calc(100vh - 70px);
   background-color: #f4f4f5;
+  overflow-y: auto;
 }
 </style>

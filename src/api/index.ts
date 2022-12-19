@@ -16,7 +16,7 @@ $api.interceptors.request.use(
   }
 );
 
-$api.interceptors.request.use(
+$api.interceptors.response.use(
   (response) => {
     // 对响应成功做些什么
     return response;
