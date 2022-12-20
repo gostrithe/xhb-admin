@@ -174,39 +174,19 @@
           >
         </el-form-item>
       </el-form>
-      <el-form>
-        <el-button class="el-button--mini">添加潜在学员</el-button>
-        <el-button class="el-button--mini">今日待跟进</el-button>
-        <el-button class="el-button--mini">分配跟进人</el-button>
-        <el-button class="el-button--mini">添加跟进记录</el-button>
-        <el-button class="el-button--mini">更多操作</el-button>
-      </el-form>
-      <el-table
-        :data="potentialStudent"
-        style="width: 100%"
-        border
-        class="etms-table-container"
-      >
-        <el-table-column type="selection" width="35" />
-        <el-table-column prop="name" label="学员姓名" width="120" />
-        <el-table-column prop="phone" label="手机号" width="120" />
-        <el-table-column prop="age" label="年龄" width="120" />
-        <el-table-column prop="birthday" label="生日" width="120" />
-        <el-table-column prop="To_follow" label="跟进状态" width="120" />
-        <el-table-column prop="Follow_person" label="跟进人" width="120" />
-        <el-table-column prop="intention" label="意向级别" width="120" />
-        <el-table-column prop="source" label="来源" width="120" />
-        <el-table-column prop="Last_follow" label="最后一次跟进" width="120" />
-        <el-table-column prop="Next_follow" label="下—次跟进" width="120" />
-        <el-table-column prop="note" label="备注" width="120" />
-        <el-table-column prop="Add_date" label="添加日期" width="120" />
-        <el-table-column fixed="right" label="操作" width="150">
+      <el-table :data="potentialStudent" style="width: 100%">
+        <el-table-column fixed prop="date" label="Date" width="150" />
+        <el-table-column prop="name" label="Name" width="120" />
+        <el-table-column prop="state" label="State" width="120" />
+        <el-table-column prop="city" label="City" width="120" />
+        <el-table-column prop="address" label="Address" width="600" />
+        <el-table-column prop="zip" label="Zip" width="120" />
+        <el-table-column fixed="right" label="Operations" width="120">
           <template #default>
-            <el-button link type="primary" size="small" @click="handleClick">
-              报名</el-button
+            <el-button link type="primary" size="small" @click="handleClick"
+              >Detail</el-button
             >
-            <el-button link type="primary" size="small">试听</el-button>
-            <el-button link type="primary" size="small">编辑</el-button>
+            <el-button link type="primary" size="small">Edit</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -224,19 +204,13 @@ import zhCn from "element-plus/lib/locale/lang/zh-cn";
 
 const potentialStudent = [
   {
-    name: "小明",
-    phone: "13151515",
-    age: "11",
-    birthday: "2",
-    To_follow: "大的",
-    Follow_person: "啊大大",
-    intention: "大的",
-    source: "阿达",
-    Last_follow: "Home",
-    Next_follow: "Home",
-    note: "Home",
-    Add_date: "Home",
-    operation: "Home",
+    name: "2016-05-03",
+    phone: "Tom",
+    年龄 age: "California",
+    city: "Los Angeles",
+    address: "No. 189, Grove St, Los Angeles",
+    zip: "CA 90036",
+    tag: "Home",
   },
 ];
 
@@ -315,14 +289,6 @@ const isSearch = ref(true);
 </script>
 
 <style lang="scss" scoped>
-.etms-table-container {
-  margin-top: 5px;
-}
-.el-button--mini {
-  padding: 7px 15px;
-  font-size: 12px;
-  border-radius: 3px;
-}
 .demo-tabs > .el-tabs__content {
   padding: 32.0025px;
   color: #6b778c;

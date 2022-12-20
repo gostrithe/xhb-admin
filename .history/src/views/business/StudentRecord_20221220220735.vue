@@ -185,7 +185,7 @@
         :data="potentialStudent"
         style="width: 100%"
         border
-        class="etms-table-container"
+        cass="etms-table-container"
       >
         <el-table-column type="selection" width="35" />
         <el-table-column prop="name" label="学员姓名" width="120" />

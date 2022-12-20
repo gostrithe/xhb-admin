@@ -174,20 +174,7 @@
           >
         </el-form-item>
       </el-form>
-      <el-form>
-        <el-button class="el-button--mini">添加潜在学员</el-button>
-        <el-button class="el-button--mini">今日待跟进</el-button>
-        <el-button class="el-button--mini">分配跟进人</el-button>
-        <el-button class="el-button--mini">添加跟进记录</el-button>
-        <el-button class="el-button--mini">更多操作</el-button>
-      </el-form>
-      <el-table
-        :data="potentialStudent"
-        style="width: 100%"
-        border
-        class="etms-table-container"
-      >
-        <el-table-column type="selection" width="35" />
+      <el-table :data="potentialStudent" style="width: 100%">
         <el-table-column prop="name" label="学员姓名" width="120" />
         <el-table-column prop="phone" label="手机号" width="120" />
         <el-table-column prop="age" label="年龄" width="120" />
@@ -200,13 +187,12 @@
         <el-table-column prop="Next_follow" label="下—次跟进" width="120" />
         <el-table-column prop="note" label="备注" width="120" />
         <el-table-column prop="Add_date" label="添加日期" width="120" />
-        <el-table-column fixed="right" label="操作" width="150">
+        <el-table-column fixed="right" label="操作" width="120">
           <template #default>
-            <el-button link type="primary" size="small" @click="handleClick">
-              报名</el-button
+            <el-button link type="primary" size="small" @click="handleClick"
+              > 报名</el-button
             >
-            <el-button link type="primary" size="small">试听</el-button>
-            <el-button link type="primary" size="small">编辑</el-button>
+            <el-button link type="primary" size="small">Edit</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -315,14 +301,6 @@ const isSearch = ref(true);
 </script>
 
 <style lang="scss" scoped>
-.etms-table-container {
-  margin-top: 5px;
-}
-.el-button--mini {
-  padding: 7px 15px;
-  font-size: 12px;
-  border-radius: 3px;
-}
 .demo-tabs > .el-tabs__content {
   padding: 32.0025px;
   color: #6b778c;

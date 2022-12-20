@@ -175,18 +175,13 @@
         </el-form-item>
       </el-form>
       <el-form>
-        <el-button class="el-button--mini">添加潜在学员</el-button>
-        <el-button class="el-button--mini">今日待跟进</el-button>
-        <el-button class="el-button--mini">分配跟进人</el-button>
-        <el-button class="el-button--mini">添加跟进记录</el-button>
-        <el-button class="el-button--mini">更多操作</el-button>
+        <el-button>添加潜在学员</el-button>
+        <el-button>今日待跟进</el-button>
+        <el-button>分配跟进人</el-button>
+        <el-button>添加跟进记录</el-button>
+        <el-button>更多操作√</el-button>
       </el-form>
-      <el-table
-        :data="potentialStudent"
-        style="width: 100%"
-        border
-        class="etms-table-container"
-      >
+      <el-table :data="potentialStudent" style="width: 100%" border>
         <el-table-column type="selection" width="35" />
         <el-table-column prop="name" label="学员姓名" width="120" />
         <el-table-column prop="phone" label="手机号" width="120" />
@@ -315,14 +310,6 @@ const isSearch = ref(true);
 </script>
 
 <style lang="scss" scoped>
-.etms-table-container {
-  margin-top: 5px;
-}
-.el-button--mini {
-  padding: 7px 15px;
-  font-size: 12px;
-  border-radius: 3px;
-}
 .demo-tabs > .el-tabs__content {
   padding: 32.0025px;
   color: #6b778c;
