@@ -13,25 +13,32 @@
           </span>
         </template>
         <template #extra>
-          <el-dropdown>
-            <el-avatar
-              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-            />
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item>个人账号</el-dropdown-item>
-                <el-dropdown-item @command="doLogout"
-                  >退出登录</el-dropdown-item
-                >
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-          <el-tooltip effect="dark" :content="fullscreen ? `取消全屏` : `全屏`">
-            <el-icon @click="handleFullScreen">
-              <FullScreen v-if="!fullscreen" />
-              <Fold v-else />
-            </el-icon>
-          </el-tooltip>
+          <el-space>
+            <el-tooltip
+              effect="dark"
+              :content="fullscreen ? `取消全屏` : `全屏`"
+            >
+              <el-icon @click="handleFullScreen">
+                <FullScreen v-if="!fullscreen" />
+                <Fold v-else />
+              </el-icon>
+            </el-tooltip>
+            <el-dropdown trigger="click" @command="handleCommand">
+              <el-avatar
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              />
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item command="userCenter"
+                    >个人账号</el-dropdown-item
+                  >
+                  <el-dropdown-item command="doLogout"
+                    >退出登录</el-dropdown-item
+                  >
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </el-space>
         </template>
       </el-page-header>
     </el-col>
@@ -60,9 +67,12 @@ const getCurrentPage = computed(() => {
   return currentPage ? currentPage.label : "首页";
 });
 
-const doLogout = () => {
-  window.location.href = "/#/login";
-  localStorage.clear();
+const handleCommand = (command: string | number | object) => {
+  // console.log(command);
+  if (command === "doLogout") {
+    window.location.href = "/login";
+    localStorage.clear();
+  }
 };
 
 const handleFullScreen = () => {

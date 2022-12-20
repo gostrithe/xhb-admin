@@ -8,9 +8,8 @@ const $api = axios.create({
 $api.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
     // 发送请求前做些什么
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token"))
       config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-    }
     return config;
   },
   (error) => {
