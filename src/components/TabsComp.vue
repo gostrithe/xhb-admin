@@ -1,21 +1,13 @@
 <template>
   <div class="tabs">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName">
       <el-tab-pane
         v-for="pane of props.tabPane"
         :key="pane.label + pane.name"
         :label="pane.label"
         :name="pane.name"
       >
-        <div class="header">
-          <slot name="header"></slot>
-        </div>
-        <div class="main">
-          <slot name="main"></slot>
-        </div>
-        <div class="footer">
-          <slot name="footer"></slot>
-        </div>
+        <slot :status="activeName"></slot>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -23,7 +15,6 @@
 
 <script lang="ts" setup>
 import { ref, defineProps } from "vue";
-import type { TabsPaneContext } from "element-plus";
 
 interface TabPane {
   label: string;
@@ -39,9 +30,6 @@ const props = defineProps({
     },
   },
 });
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
-};
 </script>
 
 <style scoped lang="scss">
