@@ -3,8 +3,12 @@
     <el-header>xhb后台管理系统</el-header>
     <el-main>
       <p :style="{ display: 'flex' }">
-        <el-button @click="isLoginTab = false" link :style="{ flex: 1 }">登录</el-button>
-        <el-button @click="isLoginTab = true" link :style="{ flex: 1 }">注册</el-button>
+        <el-button @click="isLoginTab = false" link :style="{ flex: 1 }"
+          >登录</el-button
+        >
+        <el-button @click="isLoginTab = true" link :style="{ flex: 1 }"
+          >注册</el-button
+        >
       </p>
       <el-form
         ref="ruleFormRef"

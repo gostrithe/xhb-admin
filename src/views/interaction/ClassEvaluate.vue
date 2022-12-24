@@ -81,7 +81,7 @@
 <script lang="ts" setup>
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Grid } from "@element-plus/icons-vue";
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import { fetchTableData } from "api/commentsAfterClassApi";
 
 const value1 = ref("");
