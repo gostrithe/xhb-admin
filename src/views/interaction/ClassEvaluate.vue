@@ -56,10 +56,128 @@
         <el-table-column prop="classTime" label="上课时间" />
         <el-table-column prop="teachersDesc" label="上课老师" />
         <el-table-column prop="evaluateCount" label="点评情况" />
-        <el-table-column label="操作" align="center" width="80"
-          ><span style="color: #1890ff">查看</span></el-table-column
-        >
+        <el-table-column label="操作" align="center" width="80">
+          <template #default="{ row }">
+            <span
+              style="color: #1890ff; cursor: pointer"
+              @click="getDetail(row)"
+              >查看</span
+            >
+          </template>
+        </el-table-column>
       </el-table>
+
+      <!-- drawer抽屉 -->
+      <el-drawer v-model="drawer" title="课次评价详情">
+        <template #default>
+          <el-form :model="rowData">
+            <el-form-item
+              :label="rowData['className']"
+              class="form-header"
+            ></el-form-item>
+            <div class="form-body" style="padding-left: 30px">
+              <el-form-item label="上课时间">
+                {{ rowData["classTime"] }}
+              </el-form-item>
+              <el-form-item label="上课老师">
+                {{ rowData["teachersDesc"] }}
+              </el-form-item>
+              <el-form-item label="上课教室"></el-form-item>
+              <el-form-item label="所属课程">
+                {{ rowData["courseListDesc"] }}
+              </el-form-item>
+            </div>
+            <el-form-item label="学员信息" class="form-header form-table">
+              <el-table :data="studentTableData" style="width: 380px" border>
+                <el-table-column
+                  prop="studentName"
+                  label="学生姓名"
+                  width="80"
+                ></el-table-column>
+                <el-table-column
+                  prop="studentCheckStatusDesc"
+                  label="到课状态"
+                  width="80"
+                >
+                  <template #default="{ row }">
+                    <el-tag type="info" effect="plain">{{
+                      row.studentCheckStatusDesc
+                    }}</el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="evaluateCount" label="评价数" width="80">
+                  <template #default="{ row }">
+                    <el-tag
+                      type="danger"
+                      effect="plain"
+                      style="padding: 0px 4px"
+                      >{{
+                        row.evaluateCount == "0" ? "未评价" : row.evaluateCount
+                      }}</el-tag
+                    >
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="evaluateReadCount"
+                  label="已读评价数"
+                  width="80"
+                ></el-table-column>
+                <el-table-column
+                  label="操作"
+                  width="80"
+                  fixed="right"
+                  align="center"
+                >
+                  <template #default="{ row }">
+                    <span
+                      @click="onComment(row)"
+                      style="color: #1890ff; cursor: pointer"
+                      >点评</span
+                    >
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-drawer>
+      <!-- 点评dialog -->
+      <el-dialog v-model="dialogTableVisible" class="commentDialog">
+        <template #header>
+          <div>
+            {{ dialogTitle }}
+          </div>
+        </template>
+        <template #default>
+          <div>
+            <el-row>
+              <el-col :span="12">
+                <div class="commentLeft">
+                  <el-image src="/empty_data.png"></el-image>
+                  <span>未点评</span>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="commentRight">
+                  <el-input
+                    v-model="textarea"
+                    :rows="4"
+                    type="textarea"
+                    placeholder="请输入评语,500字以内"
+                  />
+                  <span style="color: #1890ff; cursor: pointer">常用评语</span>
+                </div>
+              </el-col>
+            </el-row>
+          </div>
+        </template>
+        <template #footer>
+          <div>
+            <el-button>取消</el-button>
+            <el-button type="primary">提交</el-button>
+          </div>
+        </template>
+      </el-dialog>
 
       <div class="tableFooter">
         <el-button>导出当前页</el-button>
@@ -82,7 +200,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Grid } from "@element-plus/icons-vue";
 import { ref, watchEffect } from "vue";
-import { fetchTableData } from "api/commentsAfterClassApi";
+import { fetchTableData, getStudentTableData } from "api/commentsAfterClassApi";
 
 const value1 = ref("");
 
@@ -121,6 +239,26 @@ const pageSize = ref(20);
 watchEffect(async () => {
   await fetchData(currentPage.value, pageSize.value);
 });
+
+const drawer = ref(false);
+const rowData = ref({});
+const studentTableData = ref([]);
+const getDetail = async (row) => {
+  drawer.value = true;
+  rowData.value = row;
+  // @ts-ignore
+  const { resultData } = await getStudentTableData(row.classRecordId);
+  studentTableData.value = resultData;
+};
+
+const dialogTableVisible = ref(false);
+const dialogTitle = ref("学员点评");
+const onComment = ({ studentName }) => {
+  dialogTableVisible.value = true;
+  dialogTitle.value = `学员点评 - ${studentName}`;
+};
+
+const textarea = ref("");
 </script>
 
 <style lang="scss" scoped>
@@ -140,5 +278,55 @@ watchEffect(async () => {
   padding-top: 12px;
   display: flex;
   justify-content: space-between;
+}
+
+.form-header {
+  :deep(.el-form-item__label) {
+    font-size: 16px;
+    color: #303133;
+  }
+}
+
+:deep(.el-drawer__header) {
+  margin-bottom: 20px;
+  :deep(.el-drawer__title) {
+    font-size: 14px;
+  }
+}
+:deep(.el-drawer__body) {
+  padding-left: 30px;
+}
+
+.form-table {
+  flex-direction: column;
+  align-items: flex-start;
+  :deep(.el-form-item__content) {
+    padding-left: 14px;
+  }
+  :deep(th .cell) {
+    font-size: 12px;
+  }
+}
+
+:deep(.commentDialog) {
+  .el-dialog__body {
+    border-bottom: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+.commentLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.commentRight {
+  display: flex;
+  flex-direction: column;
+  span {
+    padding-top: 6px;
+    align-self: flex-end;
+  }
 }
 </style>
