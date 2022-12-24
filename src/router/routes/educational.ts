@@ -4,11 +4,11 @@ export default {
   children: [
     {
       path: "studentMgr",
-      component: () => import("views/educational/StudentMgr.vue"),
+      component: () => import("@/views/educational/studentMgr/IndexPage.vue"),
     },
     {
       path: "classMgr",
-      component: () => import("views/educational/ClassMgr.vue"),
+      component: () => import("@/views/educational/classMgr/IndexPage.vue"),
     },
     {
       path: "timetableMgr",

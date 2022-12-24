@@ -9,8 +9,8 @@
 
 <script lang="ts" setup>
 import TabsComp from "components/TabsComp.vue";
-import OneToOne from "components/educational/classMgr/OneToOne.vue";
-import OneToMany from "components/educational/classMgr/OneToMany.vue";
+import OneToOne from "./OneToOne.vue";
+import OneToMany from "./OneToMany.vue";
 
 const tabPane = [
   { label: "一对一", name: "1" },

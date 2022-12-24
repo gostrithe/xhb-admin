@@ -185,9 +185,6 @@
   </div>
 </template>
 
-<<<<<<< HEAD
-<script lang="ts" setup></script>
-=======
 <script lang="ts" setup>
 import * as echarts from "echarts";
 import { ref, onMounted } from "vue";

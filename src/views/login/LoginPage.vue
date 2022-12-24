@@ -63,8 +63,8 @@ const checkUname = (rule: any, value: any, callback: any) => {
 };
 
 const validatePass = (rule: any, value: any, callback: any) => {
-  if (value === "") {
-    callback(new Error("请输入密码！"));
+  if (!value) {
+    return callback(new Error("请输入密码！"));
   } else {
     if (ruleForm.checkPass !== "") {
       if (!ruleFormRef.value) return;
@@ -75,13 +75,12 @@ const validatePass = (rule: any, value: any, callback: any) => {
 };
 
 const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === "") {
+  if (!value) {
     callback(new Error("请确认密码！"));
   } else if (value !== ruleForm.password) {
     callback(new Error("密码不一致！"));
-  } else {
-    callback();
   }
+  callback();
 };
 
 const ruleForm = reactive({
