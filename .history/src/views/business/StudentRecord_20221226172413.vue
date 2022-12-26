@@ -8,14 +8,14 @@
       >
         <el-form-item label="学员信息">
           <el-input
-            v-model="Potential_trainees.name"
+            v-model="Potential_trainees.user"
             placeholder="学员信息/手机号码/卡号"
             class="el-input__inner"
           />
         </el-form-item>
         <el-form-item label="更进状态">
           <el-select
-            v-model="Potential_trainees.follow"
+            v-model="Potential_trainees.region"
             placeholder="请选择跟进状态"
             clearable
           >
@@ -28,22 +28,22 @@
         </el-form-item>
         <el-form-item label="跟进人">
           <el-input
-            v-model="Potential_trainees.followMan"
+            v-model="employee.followPerson"
             placeholder="请选择更跟进人"
             :prefix-icon="Grid"
-            @click="changefollowMan = true"
+            @click="dialogTableVisible = true"
           >
           </el-input>
-          <el-dialog v-model="changefollowMan" title="请选择跟进人">
+          <el-dialog v-model="dialogTableVisible" title="请选择跟进人">
             <el-form-item label="员工信息">
               <el-input
-                v-model="Potential_trainees.info"
+                v-model="employee.user"
                 placeholder="姓名/手机号码"
                 clearable
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="queryEmployee">查询</el-button>
+              <el-button type="primary" @click="onSubmit">查询</el-button>
             </el-form-item>
             <el-alert
               title="双击确定所选择选的数据"
@@ -51,16 +51,17 @@
               show-icon
               class="alertColor"
             />
-            <el-table
-              :data="Employee_Information"
-              @cell-dblclick="changeEmployee_Information"
-            >
+            <el-table :data="Employee_Information">
               <el-table-column
-                property="employeeNme"
+                property="Staff_nameMobile"
                 label="员工名称"
                 width="150"
               />
-              <el-table-column property="phone" label="手机号码" width="200" />
+              <el-table-column
+                property="phone_number"
+                label="手机号码"
+                width="200"
+              />
               <el-table-column property="Whether_to_teachs" label="是否授课" />
               <el-table-column property="role" label="角色" />
               <el-table-column property="note" label="备注" />
@@ -425,7 +426,6 @@ import type { TabsPaneContext, UploadProps } from "element-plus";
 import { ElMessage } from "element-plus";
 import { Grid, EditPen, ArrowDown, Plus } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-import { getEmployeeData } from "@/api/employees";
 
 const referrer = [
   {
@@ -518,14 +518,8 @@ const potentialStudent = [
 ];
 
 const activeName = ref("first");
-const changefollowMan = ref(false);
+const dialogTableVisible = ref(false);
 const dialogTableVisible2 = ref(false);
-
-//选中后在关闭弹窗
-const changeEmployee_Information = (row: { Staff_nameMobile: string }) => {
-  Potential_trainees.followMan = row.Staff_nameMobile;
-  changefollowMan.value = false;
-};
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
@@ -533,29 +527,29 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 
 // 潜在学员
 const Potential_trainees = reactive({
-  name: "",
-  follow: "",
-  birthdayDay: "",
-  followMan: "",
-  info: "",
+  user: "",
+  region: "",
 });
 
-//点击查询获取列表
-const queryEmployee = async () => {
-  const res = await getEmployeeData();
-  console.log(res);
+const onSubmit = () => {
+  console.log("submit!");
 };
 
-//跟进人
-const Employee_Information = ref([
+const employee = reactive({
+  user: "",
+  followPerson: "",
+});
+
+const Employee_Information = [
   {
-    employeeNme: "res.employeeNme",
-    phone: "15900824880",
+    user: "",
+    Staff_nameMobile: "芭莎",
+    phone_number: "15900824880",
     Whether_to_teachs: "是",
     role: "是",
     note: "是",
   },
-]);
+];
 
 const student = reactive({
   source: "",
@@ -588,6 +582,13 @@ const tagOptions = [
     label: "散客",
   },
 ];
+
+const birthday = reactive({
+  day: "",
+  month: "",
+  remark: "",
+  value1: "",
+});
 
 const isSearch = ref(true);
 </script>

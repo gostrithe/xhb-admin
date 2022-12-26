@@ -420,12 +420,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import type { TabsPaneContext, UploadProps } from "element-plus";
 import { ElMessage } from "element-plus";
 import { Grid, EditPen, ArrowDown, Plus } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-import { getEmployeeData } from "@/api/employees";
+import { getEmployeeData } from "@/api/fff";
 
 const referrer = [
   {
@@ -540,6 +540,11 @@ const Potential_trainees = reactive({
   info: "",
 });
 
+watch(changefollowMan, (newvlue, oldvalue) => {
+  
+  console.log();
+  
+});
 //点击查询获取列表
 const queryEmployee = async () => {
   const res = await getEmployeeData();

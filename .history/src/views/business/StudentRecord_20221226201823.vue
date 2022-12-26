@@ -31,10 +31,10 @@
             v-model="Potential_trainees.followMan"
             placeholder="请选择更跟进人"
             :prefix-icon="Grid"
-            @click="changefollowMan = true"
+            @click="dialogTableVisible = true"
           >
           </el-input>
-          <el-dialog v-model="changefollowMan" title="请选择跟进人">
+          <el-dialog v-model="dialogTableVisible" title="请选择跟进人">
             <el-form-item label="员工信息">
               <el-input
                 v-model="Potential_trainees.info"
@@ -56,11 +56,15 @@
               @cell-dblclick="changeEmployee_Information"
             >
               <el-table-column
-                property="employeeNme"
+                property="Staff_nameMobile"
                 label="员工名称"
                 width="150"
               />
-              <el-table-column property="phone" label="手机号码" width="200" />
+              <el-table-column
+                property="phone_number"
+                label="手机号码"
+                width="200"
+              />
               <el-table-column property="Whether_to_teachs" label="是否授课" />
               <el-table-column property="role" label="角色" />
               <el-table-column property="note" label="备注" />
@@ -420,12 +424,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import type { TabsPaneContext, UploadProps } from "element-plus";
 import { ElMessage } from "element-plus";
 import { Grid, EditPen, ArrowDown, Plus } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-import { getEmployeeData } from "@/api/employees";
+import { getEmployeeData } from "@/api/fff";
 
 const referrer = [
   {
@@ -518,13 +522,13 @@ const potentialStudent = [
 ];
 
 const activeName = ref("first");
-const changefollowMan = ref(false);
+const dialogTableVisible = ref(false);
 const dialogTableVisible2 = ref(false);
 
 //选中后在关闭弹窗
 const changeEmployee_Information = (row: { Staff_nameMobile: string }) => {
   Potential_trainees.followMan = row.Staff_nameMobile;
-  changefollowMan.value = false;
+  dialogTableVisible.value = false;
 };
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -540,22 +544,21 @@ const Potential_trainees = reactive({
   info: "",
 });
 
-//点击查询获取列表
 const queryEmployee = async () => {
   const res = await getEmployeeData();
   console.log(res);
 };
 
 //跟进人
-const Employee_Information = ref([
+const Employee_Information = [
   {
-    employeeNme: "res.employeeNme",
-    phone: "15900824880",
+    Staff_nameMobile: resizeBy.employeeNme,
+    phone_number: "15900824880",
     Whether_to_teachs: "是",
     role: "是",
     note: "是",
   },
-]);
+];
 
 const student = reactive({
   source: "",

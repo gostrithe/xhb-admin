@@ -425,7 +425,7 @@ import type { TabsPaneContext, UploadProps } from "element-plus";
 import { ElMessage } from "element-plus";
 import { Grid, EditPen, ArrowDown, Plus } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-import { getEmployeeData } from "@/api/employees";
+import { getEmployeeData } from "@/api/";
 
 const referrer = [
   {

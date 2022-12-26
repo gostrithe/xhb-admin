@@ -31,7 +31,7 @@
             v-model="Potential_trainees.followMan"
             placeholder="请选择更跟进人"
             :prefix-icon="Grid"
-            @click="changefollowMan = true"
+            @click="changefollowMan = true "
           >
           </el-input>
           <el-dialog v-model="changefollowMan" title="请选择跟进人">
@@ -420,12 +420,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import type { TabsPaneContext, UploadProps } from "element-plus";
 import { ElMessage } from "element-plus";
 import { Grid, EditPen, ArrowDown, Plus } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-import { getEmployeeData } from "@/api/employees";
+import { getEmployeeData } from "@/api/fff";
 
 const referrer = [
   {

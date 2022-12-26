@@ -420,12 +420,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import type { TabsPaneContext, UploadProps } from "element-plus";
 import { ElMessage } from "element-plus";
 import { Grid, EditPen, ArrowDown, Plus } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
-import { getEmployeeData } from "@/api/employees";
+import { getEmployeeData } from "@/api/fff";
 
 const referrer = [
   {
@@ -526,6 +526,8 @@ const changeEmployee_Information = (row: { Staff_nameMobile: string }) => {
   Potential_trainees.followMan = row.Staff_nameMobile;
   changefollowMan.value = false;
 };
+
+console.warn();
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
