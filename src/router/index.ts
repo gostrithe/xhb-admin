@@ -10,7 +10,7 @@ const store = useStore();
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/index",
+    redirect: "/login",
     component: LayoutFrame,
     children: [...frameIn],
   },

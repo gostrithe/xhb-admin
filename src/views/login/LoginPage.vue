@@ -55,7 +55,7 @@ const router = useRouter();
 const isLoginTab = ref(false);
 const ruleFormRef = ref<FormInstance>();
 
-const checkUname = (rule: any, value: any, callback: any) => {
+const validateUname = (rule: any, value: any, callback: any) => {
   if (!value) {
     return callback(new Error("请输入用户名！"));
   }
@@ -63,7 +63,7 @@ const checkUname = (rule: any, value: any, callback: any) => {
 };
 
 const validatePass = (rule: any, value: any, callback: any) => {
-  if (!value) {
+  if (value === "") {
     return callback(new Error("请输入密码！"));
   } else {
     if (ruleForm.checkPass !== "") {
@@ -92,7 +92,7 @@ const ruleForm = reactive({
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: "blur" }],
   checkPass: [{ validator: validatePass2, trigger: "blur" }],
-  uname: [{ validator: checkUname, trigger: "blur" }],
+  uname: [{ validator: validateUname, trigger: "blur" }],
 });
 
 const submitForm = (formEl: FormInstance | undefined) => {
@@ -103,7 +103,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
         name: ruleForm.uname,
         password: ruleForm.password,
       });
-      // console.log(res);
+      console.log(res);
       localStorage.setItem("token", res.data.accessToken);
       router.push("/index");
       ElMessage({ message: "登录成功", type: "success" });
@@ -131,7 +131,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: #ccc;
+  background-color: #aaa;
 
   .el-header {
     text-align: center;

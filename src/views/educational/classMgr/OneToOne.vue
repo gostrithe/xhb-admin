@@ -11,7 +11,7 @@
       </el-form>
     </el-header>
     <el-main>
-      <TableComp :tableData="tableData3" />
+      <TableComp :tableData="tableData" />
     </el-main>
   </el-container>
 </template>
@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import TableComp from "components/TableComp.vue";
 
-const tableData3 = [
+const tableData = [
   { label: "在读学员", name: "1" },
   { label: "学员课程", name: "2" },
   { label: "请假申请", name: "3" },

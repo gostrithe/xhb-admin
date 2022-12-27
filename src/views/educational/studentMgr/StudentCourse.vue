@@ -25,7 +25,7 @@
             />
           </el-select>
         </el-form-item>
-        <template v-if="!isFormCollapse">
+        <template v-if="!isFormCollapsed">
           <el-form-item label="所在班级">
             <el-input placeholder="请选择班级" />
           </el-form-item>
@@ -53,8 +53,8 @@
           <el-button
             link
             type="primary"
-            @click="isFormCollapse = !isFormCollapse"
-            >{{ isFormCollapse ? "更多搜索" : "收起搜索" }}</el-button
+            @click="isFormCollapsed = !isFormCollapsed"
+            >{{ isFormCollapsed ? "更多搜索" : "收起搜索" }}</el-button
           >
         </el-form-item>
       </el-form>
@@ -63,7 +63,7 @@
       <div>
         <el-button>批量延期</el-button>
       </div>
-      <TableComp :tableData="tableData1" />
+      <!-- <TableComp :tableData="tableData1" /> -->
     </el-main>
   </el-container>
 </template>
@@ -76,7 +76,7 @@ export default defineComponent({
   name: "studentCourse",
   data() {
     return {
-      isFormCollapse: true,
+      isFormCollapsed: true,
       tableData1: [
         { label: "在读学员", name: "1" },
         { label: "学员课程", name: "2" },
@@ -86,7 +86,7 @@ export default defineComponent({
     };
   },
   components: {
-    TableComp,
+    // TableComp,
   },
 });
 </script>

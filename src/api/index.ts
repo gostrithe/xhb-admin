@@ -27,7 +27,7 @@ $api.interceptors.response.use(
     // 对响应失败做些什么
     const { status } = error.response;
     if (status === 401) {
-      window.location.href = "/#/login";
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
