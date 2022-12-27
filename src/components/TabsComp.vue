@@ -3,7 +3,7 @@
     <el-tabs v-model="activeName">
       <el-tab-pane
         v-for="pane of props.tabPane"
-        :key="pane.label + pane.name"
+        :key="pane.name"
         :label="pane.label"
         :name="pane.name"
       >

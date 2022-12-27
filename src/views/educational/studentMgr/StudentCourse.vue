@@ -63,7 +63,7 @@
       <div>
         <el-button>批量延期</el-button>
       </div>
-      <TableComp :tableData="tableData1" />
+      <!-- <TableComp :tableData="tableData1" /> -->
     </el-main>
   </el-container>
 </template>
@@ -86,7 +86,7 @@ export default defineComponent({
     };
   },
   components: {
-    TableComp,
+    // TableComp,
   },
 });
 </script>
