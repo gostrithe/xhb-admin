@@ -1,7 +1,7 @@
 <template>
   <el-container class="active-student">
     <el-header height="auto">
-      <el-form inline label-width="auto">
+      <el-form inline label-width="auto" ref="mainForm">
         <el-form-item label="学员信息">
           <el-input placeholder="学员姓名/手机号码/卡号" style="width: 183px" />
         </el-form-item>
@@ -12,7 +12,7 @@
             <el-option label="已结课" value="已结课" />
           </el-select>
         </el-form-item>
-        <template v-if="!isFormCollapse">
+        <template v-if="!isFormCollapsed">
           <el-form-item label="在读课程">
             <el-select placeholder="请选择课程">
               <el-option
@@ -24,14 +24,14 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所在班级">
-            <el-input placeholder="请选择班级">
+            <el-input placeholder="请选择班级" @click="pickClass">
               <template #prefix>
                 <el-icon><Grid /></el-icon>
               </template>
             </el-input>
           </el-form-item>
           <el-form-item label="学管师">
-            <el-input placeholder="请选择学管师">
+            <el-input placeholder="请选择学管师" @click="pickTutor">
               <template #prefix>
                 <el-icon><Grid /></el-icon>
               </template>
@@ -46,7 +46,16 @@
           <el-form-item label="学员来源">
             <el-select placeholder="请选择学员来源">
               <el-option
-                v-for="option of 3"
+                v-for="option of [
+                  '地推活动',
+                  '转介绍',
+                  '门店到访',
+                  '电话邀约',
+                  '家长分享',
+                  '抖音',
+                  '小红书',
+                  '三道幕公众号',
+                ]"
                 :key="option"
                 :label="option"
                 :value="option"
@@ -129,21 +138,51 @@
           <el-button
             link
             type="primary"
-            @click="isFormCollapse = !isFormCollapse"
-            >{{ isFormCollapse ? "更多搜索" : "收起搜索" }}</el-button
+            @click="isFormCollapsed = !isFormCollapsed"
+            >{{ isFormCollapsed ? "更多搜索" : "收起搜索" }}</el-button
           >
         </el-form-item>
       </el-form>
     </el-header>
     <el-main>
-      <div>
+      <el-space>
         <el-button>刷卡招学员</el-button>
         <el-button>分配学管师</el-button>
         <el-button>导入学员课程</el-button>
-      </div>
+      </el-space>
       <TableComp :tableData="tableData1" />
     </el-main>
   </el-container>
+
+  <el-dialog v-model="isClassDialogOpen" title="请选择学管师">
+    <el-form inline>
+      <el-form-item label="班级名称">
+        <el-input palceholder="请输入班级名称" />
+      </el-form-item>
+      <el-form-item label="类型">
+        <el-select placeholder="请选择">
+          <el-option label="一对一" value="一对一" />
+          <el-option label="一对多" value="一对多" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary">查询</el-button>
+      </el-form-item>
+    </el-form>
+    <TableComp :tableData="tableData1" />
+  </el-dialog>
+  <el-dialog v-model="isTutorDialogOpen" title="请选择学管师">
+    <el-form inline>
+      <el-form-item label="员工信息">
+        <el-input palceholder="姓名/手机号码" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary">查询</el-button>
+      </el-form-item>
+    </el-form>
+    <el-alert title="双击确定所选择的数据" type="info" show-icon />
+    <TableComp :tableData="tableData1" />
+  </el-dialog>
 </template>
 
 <script lang="ts">
@@ -155,7 +194,9 @@ export default defineComponent({
   name: "activeStudent",
   data() {
     return {
-      isFormCollapse: true,
+      isClassDialogOpen: false,
+      isTutorDialogOpen: false,
+      isFormCollapsed: true,
       tableData1: [
         { label: "在读学员", name: "1" },
         { label: "学员课程", name: "2" },
@@ -168,10 +209,15 @@ export default defineComponent({
     TableComp,
     Grid,
   },
+  methods: {
+    pickClass() {
+      this.isClassDialogOpen = true;
+    },
+    pickTutor() {
+      this.isTutorDialogOpen = true;
+    },
+  },
 });
 </script>
 
-<style lang="scss" scoped>
-.active-student {
-}
-</style>
+<style lang="scss" scoped></style>
