@@ -22,7 +22,7 @@
         </el-form-item>
         <el-form-item label="密码" prop="pass">
           <el-input
-            v-model="ruleForm.pass"
+            v-model="ruleForm.password"
             type="password"
             autocomplete="off"
           />
@@ -46,12 +46,16 @@
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 import type { FormInstance } from "element-plus";
+import { ElMessage } from "element-plus";
+import { doLogin } from "@/api/https";
 
-const isLoginTab = ref(true);
+const router = useRouter();
+const isLoginTab = ref(false);
 const ruleFormRef = ref<FormInstance>();
 
-const checkUname = (rule: any, value: any, callback: any) => {
+const validateUname = (rule: any, value: any, callback: any) => {
   if (!value) {
     return callback(new Error("请输入用户名！"));
   }
@@ -60,7 +64,7 @@ const checkUname = (rule: any, value: any, callback: any) => {
 
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === "") {
-    callback(new Error("请输入密码！"));
+    return callback(new Error("请输入密码！"));
   } else {
     if (ruleForm.checkPass !== "") {
       if (!ruleFormRef.value) return;
@@ -71,17 +75,16 @@ const validatePass = (rule: any, value: any, callback: any) => {
 };
 
 const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === "") {
+  if (!value) {
     callback(new Error("请确认密码！"));
-  } else if (value !== ruleForm.pass) {
+  } else if (value !== ruleForm.password) {
     callback(new Error("密码不一致！"));
-  } else {
-    callback();
   }
+  callback();
 };
 
 const ruleForm = reactive({
-  pass: "",
+  password: "",
   checkPass: "",
   uname: "",
 });
@@ -89,14 +92,21 @@ const ruleForm = reactive({
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: "blur" }],
   checkPass: [{ validator: validatePass2, trigger: "blur" }],
-  uname: [{ validator: checkUname, trigger: "blur" }],
+  uname: [{ validator: validateUname, trigger: "blur" }],
 });
 
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  formEl.validate((valid) => {
+  formEl.validate(async (valid) => {
     if (valid) {
-      console.log("submit!");
+      const res = await doLogin({
+        name: ruleForm.uname,
+        password: ruleForm.password,
+      });
+      console.log(res);
+      localStorage.setItem("token", res.data.accessToken);
+      router.push("/index");
+      ElMessage({ message: "登录成功", type: "success" });
     } else {
       console.log("error submit!");
       return false;
@@ -121,7 +131,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: #ccc;
+  background-color: #aaa;
 
   .el-header {
     text-align: center;
