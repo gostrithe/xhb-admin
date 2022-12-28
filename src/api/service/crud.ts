@@ -2,7 +2,7 @@
 import instance from "./instance";
 
 /* 通用的POST */
-export async function doPost(url: string, data: any, config: object) {
+export async function doPost(url: string, data: any, config?: object) {
   try {
     const ret = await instance.post(url, data, config);
     return ret;
@@ -36,7 +36,7 @@ export async function doGet(
 }
 
 /* 通用的PUT */
-export async function doPut(url: string, data: any, config: object) {
+export async function doPut(url: string, data: any, config?: object) {
   try {
     const ret = await instance.put(url, data, config);
     return ret;
@@ -46,7 +46,7 @@ export async function doPut(url: string, data: any, config: object) {
 }
 
 /* 通用的DELETE */
-export async function doDelete(url: string, config: object) {
+export async function doDelete(url: string, config?: object) {
   try {
     const ret = await instance.delete(url, config);
     return ret;
