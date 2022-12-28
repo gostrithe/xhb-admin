@@ -9,12 +9,12 @@
     >
       <template v-if="tableColumn">
         <slot name="selection"></slot>
-
         <el-table-column
           v-for="item of tableColumn"
           :key="item.prop"
           :label="item.label"
           :prop="item.prop"
+          width="120"
         />
         <slot name="operation"></slot>
       </template>

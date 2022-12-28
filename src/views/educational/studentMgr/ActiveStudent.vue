@@ -8,23 +8,23 @@
         ref="mainFormRef"
         class="demo-form-inline"
       >
-        <el-form-item label="学员信息">
+        <el-form-item label="学员信息" prop="sname">
           <el-input
-            v-model="mainForm.name"
+            v-model="mainForm.sname"
             placeholder="学员姓名/手机号码/卡号"
             style="width: 183px"
           />
         </el-form-item>
-        <el-form-item label="课程状态">
-          <el-select v-model="mainForm.status" placeholder="请选择">
+        <el-form-item label="课程状态" prop="sstatus">
+          <el-select v-model="mainForm.sstatus" placeholder="请选择">
             <el-option label="正常" value="正常" />
             <el-option label="已停课" value="已停课" />
             <el-option label="已结课" value="已结课" />
           </el-select>
         </el-form-item>
         <template v-if="!isFormCollapsed">
-          <el-form-item label="在读课程">
-            <el-select v-model="mainForm.course" placeholder="请选择课程">
+          <el-form-item label="在读课程" prop="scourse">
+            <el-select v-model="mainForm.scourse" placeholder="请选择课程">
               <el-option
                 v-for="option of 3"
                 :key="option"
@@ -33,9 +33,9 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="所在班级">
+          <el-form-item label="所在班级" prop="sclass">
             <el-input
-              v-model="mainForm.class"
+              v-model="mainForm.sclass"
               placeholder="请选择班级"
               @click="pickClass"
             >
@@ -44,9 +44,9 @@
               </template>
             </el-input>
           </el-form-item>
-          <el-form-item label="学管师">
+          <el-form-item label="学管师" prop="stutor">
             <el-input
-              v-model="mainForm.tutor"
+              v-model="mainForm.stutor"
               placeholder="请选择学管师"
               @click="pickTutor"
             >
@@ -55,14 +55,14 @@
               </template>
             </el-input>
           </el-form-item>
-          <el-form-item label="微信状态">
-            <el-select v-model="mainForm.wx" placeholder="家长是否绑定了微信">
+          <el-form-item label="微信状态" prop="swx">
+            <el-select v-model="mainForm.swx" placeholder="家长是否绑定了微信">
               <el-option label="已绑定" value="已绑定" />
               <el-option label="未绑定" value="未绑定" />
             </el-select>
           </el-form-item>
-          <el-form-item label="学员来源">
-            <el-select v-model="mainForm.sourse" placeholder="请选择学员来源">
+          <el-form-item label="学员来源" prop="ssourse">
+            <el-select v-model="mainForm.ssourse" placeholder="请选择学员来源">
               <el-option
                 v-for="option of [
                   '地推活动',
@@ -80,23 +80,23 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="家庭住址">
-            <el-input v-model="mainForm.adress" placeholder="请输入家庭住址" />
+          <el-form-item label="家庭住址" prop="sadress">
+            <el-input v-model="mainForm.sadress" placeholder="请输入家庭住址" />
           </el-form-item>
-          <el-form-item label="就读学校">
+          <el-form-item label="就读学校" prop="sschool">
             <el-input
-              v-model="mainForm.school"
+              v-model="mainForm.sschool"
               placeholder="目前就读的学校名称"
             />
           </el-form-item>
-          <el-form-item label="就读年级">
-            <el-select v-model="mainForm.grade" placeholder="目前在读的年级">
+          <el-form-item label="就读年级" prop="sgrade">
+            <el-select v-model="mainForm.sgrade" placeholder="目前在读的年级">
               <el-option label="初培" value="初培" />
               <el-option label="复审" value="复审" />
             </el-select>
           </el-form-item>
-          <el-form-item label="标签">
-            <el-select v-model="mainForm.label" placeholder="请选择学员标签">
+          <el-form-item label="标签" prop="slabel">
+            <el-select v-model="mainForm.slabel" placeholder="请选择学员标签">
               <el-option
                 v-for="option of 3"
                 :key="option"
@@ -105,11 +105,11 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="年龄">
-            <el-input v-model="mainForm.age" placeholder="学员年龄" />
+          <el-form-item label="年龄" prop="sage">
+            <el-input v-model="mainForm.sage" placeholder="学员年龄" />
           </el-form-item>
-          <el-form-item label="生日">
-            <el-select v-model="mainForm.birthday" placeholder="生日">
+          <el-form-item label="生日" prop="sbirthday">
+            <el-select v-model="mainForm.sbirthday" placeholder="生日">
               <el-option key="今日生日" label="今日生日" value="今日生日" />
               <el-option
                 v-for="option of [7, 15, 30, 60]"
@@ -119,8 +119,8 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="生日月份">
-            <el-select v-model="mainForm.month" placeholder="请选择学员标签">
+          <el-form-item label="生日月份" prop="smonth">
+            <el-select v-model="mainForm.smonth" placeholder="请选择生日月份">
               <el-option
                 v-for="option of '一二三四五六七八九十'"
                 :key="option + '月'"
@@ -131,26 +131,26 @@
               <el-option key="十二月" label="十二月" value="十二月" />
             </el-select>
           </el-form-item>
-          <el-form-item label="是否分班">
-            <el-select v-model="mainForm.divide" placeholder="请选择">
+          <el-form-item label="是否分班" prop="sdivide">
+            <el-select v-model="mainForm.sdivide" placeholder="请选择">
               <el-option label="否" value="否"></el-option>
               <el-option label="是" value="是"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="是否排课">
-            <el-select v-model="mainForm.arrange" placeholder="请选择">
+          <el-form-item label="是否排课" prop="sarrange">
+            <el-select v-model="mainForm.sarrange" placeholder="请选择">
               <el-option label="否" value="否"></el-option>
               <el-option label="是" value="是"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="人脸采集">
-            <el-select v-model="mainForm.face" placeholder="请选择">
+          <el-form-item label="人脸采集" prop="sface">
+            <el-select v-model="mainForm.sface" placeholder="请选择">
               <el-option label="否" value="否"></el-option>
               <el-option label="是" value="是"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="备注">
-            <el-input v-model="mainForm.remarks" placeholder="备注" />
+          <el-form-item label="备注" prop="sremarks">
+            <el-input v-model="mainForm.sremarks" placeholder="备注" />
           </el-form-item>
         </template>
         <el-form-item>
@@ -167,18 +167,20 @@
     </el-header>
     <el-main>
       <el-space>
-        <el-button>刷卡招学员</el-button>
-        <el-button>分配学管师</el-button>
-        <el-button>导入学员课程</el-button>
+        <el-button @click="isAddDrawerOpen = true" type="primary"
+          ><el-icon><EditPen /></el-icon>新增在读学员</el-button
+        >
       </el-space>
       <TableComp :tableData="tableData" :tableColumn="tableColumn">
         <template #selection>
           <el-table-column type="selection" width="55" />
         </template>
         <template #operation>
-          <el-table-column width="160" fixed="right" label="操作">
+          <el-table-column width="120" fixed="right" label="操作">
             <template #default="scope">
               <el-button
+                link
+                type="primary"
                 size="small"
                 @click="handleEdit(scope.$index, scope.row)"
                 >修改</el-button
@@ -190,7 +192,7 @@
                 @confirm="handleDelete(scope.$index, scope.row)"
               >
                 <template #reference>
-                  <el-button size="small" type="danger">删除</el-button>
+                  <el-button link type="primary" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
             </template>
@@ -234,17 +236,24 @@
     <el-alert title="双击确定所选择的数据" type="info" show-icon />
     <TableComp :tableData="teacher" :tableColumn="teacherColumn" />
   </el-dialog>
-
-  <el-drawer v-model="drawer" title="I am the title" :with-header="false">
-    <span>Hi there!</span>
+  <el-drawer v-model="isAddDrawerOpen" title="添加在读学员">
+    <AddActiveStudent @afterAdd="afterAdd" status="add"></AddActiveStudent>
+  </el-drawer>
+  <el-drawer v-model="isEditDrawerOpen" title="修改在读学员">
+    <AddActiveStudent
+      @afterEdit="afterEdit"
+      status="edit"
+      :editForm="editForm"
+    ></AddActiveStudent>
   </el-drawer>
 </template>
 
 <script lang="ts">
 import TableComp from "components/TableComp.vue";
+import AddActiveStudent from "@/components/AddActiveStudent.vue";
 import { defineComponent } from "vue";
 import { ElNotification } from "element-plus";
-import { Grid } from "@element-plus/icons-vue";
+import { Grid, EditPen } from "@element-plus/icons-vue";
 import {
   getActiveStudent,
   getAllClass,
@@ -256,7 +265,8 @@ export default defineComponent({
   name: "activeStudent",
   data() {
     return {
-      drawer: true,
+      isEditDrawerOpen: false,
+      isAddDrawerOpen: false,
       isClassDialogOpen: false,
       isTutorDialogOpen: false,
       isFormCollapsed: true,
@@ -264,7 +274,6 @@ export default defineComponent({
         { label: "学员姓名", prop: "sname" },
         { label: "手机号码", prop: "sphone" },
         { label: "考勤卡", prop: "stimecard" },
-        { label: "手机号码", prop: "sphone" },
         { label: "人脸", prop: "sface" },
         { label: "学员码", prop: "scode" },
         { label: "年龄", prop: "sage" },
@@ -299,34 +308,38 @@ export default defineComponent({
       classes: [],
       teacher: [],
       mainForm: {
-        name: "",
-        status: "",
-        course: "",
-        class: "",
-        tutor: "",
-        wx: "",
-        sourse: "",
-        adress: "",
-        school: "",
-        grade: "",
-        label: "",
-        age: "",
-        birthday: "",
-        month: "",
-        divide: "",
-        arrange: "",
-        face: "",
-        remarks: "",
+        sname: "",
+        sstatus: "",
+        scourse: "",
+        sclass: "",
+        stutor: "",
+        swx: "",
+        ssourse: "",
+        sadress: "",
+        sschool: "",
+        sgrade: "",
+        slabel: "",
+        sage: "",
+        sbirthday: "",
+        smonth: "",
+        sdivide: "",
+        sarrange: "",
+        sface: "",
+        sremarks: "",
       },
+      editForm: {},
+      editId: "",
     };
   },
   components: {
     TableComp,
+    AddActiveStudent,
     Grid,
+    EditPen,
   },
   methods: {
-    getStudent() {
-      getActiveStudent().then((res) => {
+    getStudent(data) {
+      getActiveStudent(data).then((res) => {
         // console.log(res);
         this.tableData = res.data.data;
       });
@@ -338,26 +351,40 @@ export default defineComponent({
       this.isTutorDialogOpen = true;
     },
     doReset(formName: string) {
-      console.log(formName, this.$refs[formName]);
-
+      // console.log(formName, this.$refs[formName]);
       this.$refs[formName].resetFields();
     },
     doQuery() {
-      console.log("mainform", this.mainForm);
+      // console.log("mainform", this.mainForm);
+      const data = Object.fromEntries(
+        Object.entries(this.mainForm).filter((i) => i[1] !== "")
+      );
+      // console.log("data", data);
+      this.getStudent(data);
     },
     getClass() {},
     handleEdit(index, record) {
       console.log("handleEdit", index, record);
+      this.isEditDrawerOpen = true;
+      this.editForm = record;
     },
     handleDelete(index, record) {
       // console.log("handleDelete", index, record);
       deleteActiveStudent(record.id).then(() => {
-        this.getStudent();
+        this.getStudent({});
         ElNotification({
           message: "删除成功",
           duration: 0,
         });
       });
+    },
+    afterAdd(status) {
+      this.isAddDrawerOpen = status;
+      this.getStudent({});
+    },
+    afterEdit(status) {
+      this.isEditDrawerOpen = status;
+      this.getStudent({});
     },
   },
   created() {
@@ -369,7 +396,7 @@ export default defineComponent({
       // console.log(res);
       this.teacher = res.data.data;
     });
-    this.getStudent();
+    this.getStudent({});
   },
 });
 </script>
